@@ -38,5 +38,38 @@ for item in items:
 rpg_curs.execute('SELECT * from charactercreator_character_inventory_web')
 print(rpg_curs.fetchall())
 
+
+#make the table for titanic table
+create_titanic_table = """ 
+CREATE TABLE titanic (
+Survived INT,
+Pclass INT,
+Name VARCHAR(30),
+Sex VARCHAR(15),
+Age INT,
+SiblingsSpousesAboard INT,
+ParentsChildrenAboard INT,
+Fare FLOAT);
+"""
+#insert the row in dataframe into table
+#create column list for insertion
+df.head(0).to_sql('table_name', engine, if_exists='replace',index=False) #truncates the table
+
+conn = engine.raw_connection()
+cur = conn.cursor()
+output = io.StringIO()
+df.to_csv(output, sep='\t', header=False, index=False)
+output.seek(0)
+contents = output.getvalue()
+cur.copy_from(output, 'table_name', null="") # null values become ''
+conn.commit()
+
+
+
+
+
+
+
+
 rpg_curs.close()
 rpg_conn.commit()
