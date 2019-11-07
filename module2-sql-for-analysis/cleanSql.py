@@ -4,7 +4,7 @@ import sqlite3
 #setting up for psycopy2.connect
 dbname = 'wbtaflae'
 user = 'wbtaflae'
-password = 'PrFRj3SJLlpPBhmG8I0SY3ogazL6bmGz'
+password = ''
 host = 'salt.db.elephantsql.com'
 
 rpg_conn = psycopg2.connect( dbname =dbname, user=user, password=password, host=host)
